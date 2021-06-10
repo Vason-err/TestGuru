@@ -19,24 +19,24 @@ tests = Test.create!([
                        { title: "HTML", level: 2, category: front, author_id: users.first.id },
                        { title: "Rails", level: 1, category: back, author_id: users.first.id }
                      ])
-Question.create!([
-                   { body: "Вопрос №1 теста Ruby", test_id: 1 },
-                   { body: "Вопрос №1 теста CSS", test_id: 2 },
-                   { body: "Вопрос №1 теста HTML", test_id: 3 },
-                   { body: "Вопрос №1 теста Rails", test_id: 4 }
-                 ])
+questions = Question.create!([
+                               { body: "Вопрос №1 теста Ruby", test_id: tests[0].id },
+                               { body: "Вопрос №1 теста CSS", test_id: tests[1].id },
+                               { body: "Вопрос №1 теста HTML", test_id: tests[2].id },
+                               { body: "Вопрос №1 теста Rails", test_id: tests[3].id }
+                             ])
 Answer.create!([
-                 { body: "Ответ №1", correct: false, question_id: 1 },
-                 { body: "Ответ №2", correct: true, question_id: 1 },
-                 { body: "Ответ №1", correct: false, question_id: 2 },
-                 { body: "Ответ №2", correct: true, question_id: 2 },
-                 { body: "Ответ №1", correct: true, question_id: 3 },
-                 { body: "Ответ №2", correct: false, question_id: 3 },
-                 { body: "Ответ №1", correct: false, question_id: 4 },
-                 { body: "Ответ №2", correct: true, question_id: 4 }
+                 { body: "Ответ №1", correct: false, question_id: questions[0].id },
+                 { body: "Ответ №2", correct: true, question_id: questions[0].id },
+                 { body: "Ответ №1", correct: false, question_id: questions[1].id },
+                 { body: "Ответ №2", correct: true, question_id: questions[1].id },
+                 { body: "Ответ №1", correct: true, question_id: questions[2].id },
+                 { body: "Ответ №2", correct: false, question_id: questions[2].id },
+                 { body: "Ответ №1", correct: false, question_id: questions[3].id },
+                 { body: "Ответ №2", correct: true, question_id: questions[3].id }
                ])
 
 Result.create!([
-                 { grade: 5, test: tests.first, user_id: users.last },
-                 { grade: 4, test: tests.last, user_id: users.last }
+                 { grade: 5, test_id: tests.first.id, user_id: users.last.id },
+                 { grade: 4, test_id: tests.last.id, user_id: users.last.id }
                ])
