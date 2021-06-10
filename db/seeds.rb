@@ -17,18 +17,26 @@ tests = Test.create!([
                        { title: "Ruby", level: 0, category: back, author_id: users.first.id },
                        { title: "CSS", level: 3, category: front, author_id: users.first.id },
                        { title: "HTML", level: 2, category: front, author_id: users.first.id },
-                       {title: "Rails", level: 1, category: back, author_id: users.first.id }
+                       { title: "Rails", level: 1, category: back, author_id: users.first.id }
                      ])
-questions = []
-answers = []
-tests.each do |test|
-  5.times do |index|
-    questions << Question.create!(body: "Вопрос №#{index} теста #{test.title}", test_id: test.id)
-    4.times { |index| answers << Answer.create!(body: "Ответ №#{index}", correct: index.zero?, question_id: index ) }
-  end
-end
+Question.create!([
+                   { body: "Вопрос №1 теста Ruby", test_id: 1 },
+                   { body: "Вопрос №1 теста CSS", test_id: 2 },
+                   { body: "Вопрос №1 теста HTML", test_id: 3 },
+                   { body: "Вопрос №1 теста Rails", test_id: 4 }
+                 ])
+Answer.create!([
+                 { body: "Ответ №1", correct: false, question_id: 1 },
+                 { body: "Ответ №2", correct: true, question_id: 1 },
+                 { body: "Ответ №1", correct: false, question_id: 2 },
+                 { body: "Ответ №2", correct: true, question_id: 2 },
+                 { body: "Ответ №1", correct: true, question_id: 3 },
+                 { body: "Ответ №2", correct: false, question_id: 3 },
+                 { body: "Ответ №1", correct: false, question_id: 4 },
+                 { body: "Ответ №2", correct: true, question_id: 4 }
+               ])
 
-results = Result.create!([
-                           { grade: 5, test: tests.first, user_id: users.last },
-                           { grade: 4, test: tests.last, user_id: users.last }
-                         ])
+Result.create!([
+                 { grade: 5, test: tests.first, user_id: users.last },
+                 { grade: 4, test: tests.last, user_id: users.last }
+               ])

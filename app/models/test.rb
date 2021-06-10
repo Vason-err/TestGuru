@@ -1,6 +1,5 @@
 class Test < ApplicationRecord
   def self.titles(category_title)
-    cat_id = categories.select(category_id).where(title: category_title)
-    tests.where(category_id: cat_id).order(title: :desc)
+    categories.joins("LEFT JOIN tests ON tests.category_id = categories.category_id").where(title: category_title).order(title: :desc)
   end
 end
