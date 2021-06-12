@@ -5,6 +5,9 @@ class Test < ApplicationRecord
   has_many :results
   has_many :users, through: :results
   def self.titles_by_category(category)
-    self.joins("LEFT JOIN categories ON tests.category_id = categories.id").where("categories.title = ?", category).order(title: :desc).pluck(:title)
+    self.joins("JOIN categories ON tests.category_id = categories.id")
+        .where("categories.title = ?", category)
+        .order(title: :desc)
+        .pluck(:title)
   end
 end
