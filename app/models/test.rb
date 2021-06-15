@@ -23,7 +23,8 @@ class Test < ApplicationRecord
       .order(title: :desc)
   }
 
-  validates :title, presence: true
+  validates :title, presence: true, uniqueness: { scope: :level }
+  validates :level, numericality: { only_integer: true, greater_than_or_equal_to: MIN_LEVEL }
 
   def self.titles_by_category(category_title)
     by_category(category_title).pluck(:title)
