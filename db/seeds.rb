@@ -13,30 +13,26 @@ users = User.create!([
                        { name: "User0", email: "user0@user.com", password: "password" },
                        { name: "User1", email: "user1@user.com", password: "drowssap"}
                      ])
-tests = Test.create!([
-                       { title: "Ruby", level: 0, category: back, author_id: users.first.id },
-                       { title: "CSS", level: 3, category: front, author_id: users.first.id },
-                       { title: "HTML", level: 2, category: front, author_id: users.first.id },
-                       { title: "Rails", level: 1, category: back, author_id: users.first.id }
-                     ])
-questions = Question.create!([
-                               { body: "Вопрос №1 теста Ruby", test_id: tests[0].id },
-                               { body: "Вопрос №1 теста CSS", test_id: tests[1].id },
-                               { body: "Вопрос №1 теста HTML", test_id: tests[2].id },
-                               { body: "Вопрос №1 теста Rails", test_id: tests[3].id }
-                             ])
-Answer.create!([
-                 { body: "Ответ №1", correct: false, question_id: questions[0].id },
-                 { body: "Ответ №2", correct: true, question_id: questions[0].id },
-                 { body: "Ответ №1", correct: false, question_id: questions[1].id },
-                 { body: "Ответ №2", correct: true, question_id: questions[1].id },
-                 { body: "Ответ №1", correct: true, question_id: questions[2].id },
-                 { body: "Ответ №2", correct: false, question_id: questions[2].id },
-                 { body: "Ответ №1", correct: false, question_id: questions[3].id },
-                 { body: "Ответ №2", correct: true, question_id: questions[3].id }
-               ])
+tests = users[0].created_tests.create!([
+                                         { title: "Ruby", level: 0, category: back },
+                                         { title: "CSS", level: 3, category: front },
+                                         { title: "HTML", level: 2, category: front },
+                                         { title: "Rails", level: 1, category: back }
+                                       ])
+questions = []
+tests.each do |test|
+    questions << test.questions.create!(body: "Вопроса №1 теста #{test.title}")
+end
+questions[0].answers.create!(body: "Ответ №1", correct: false)
+questions[0].answers.create!(body: "Ответ №2", correct: true)
+questions[1].answers.create!(body: "Ответ №1", correct: true)
+questions[1].answers.create!(body: "Ответ №2", correct: false)
+questions[2].answers.create!(body: "Ответ №1", correct: false)
+questions[2].answers.create!(body: "Ответ №2", correct: true)
+questions[3].answers.create!(body: "Ответ №1", correct: false)
+questions[3].answers.create!(body: "Ответ №2", correct: true)
 
-Result.create!([
-                 { grade: 5, test_id: tests.first.id, user_id: users.last.id },
-                 { grade: 4, test_id: tests.last.id, user_id: users.last.id }
-               ])
+users[1].results.create!([
+                           { grade: 5, test_id: tests.first },
+                           { grade: 4, test_id: tests.last }
+                         ])
