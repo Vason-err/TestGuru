@@ -23,6 +23,8 @@ class Test < ApplicationRecord
       .order(title: :desc)
   }
 
+  validates :title, presence: true
+
   def self.titles_by_category(category_title)
     by_category(category_title).pluck(:title)
   end
