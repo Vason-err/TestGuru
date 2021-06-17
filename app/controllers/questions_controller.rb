@@ -1,4 +1,8 @@
 class QuestionsController < ApplicationController
+
+  before_action :find_test, only: [:index, :new, :create]
+  before_action :find_question, only: [:show, :destroy]
+
   def index
     render json: @test.questions
   end
