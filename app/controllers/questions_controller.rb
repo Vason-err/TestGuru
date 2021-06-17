@@ -7,6 +7,20 @@ class QuestionsController < ApplicationController
     render json: @question
   end
 
+  def new
+    @question = @test.questions.new
+  end
+
+  def create
+    @question = @test.questions.new(question_params)
+    if @question.save
+      redirect_to question_path(@question)
+      render plain: 'Question created'
+    else
+      render :new
+    end
+  end
+
   private
 
   def find_test
@@ -15,5 +29,9 @@ class QuestionsController < ApplicationController
 
   def find_question
     @question = Question.find(params[:id])
+  end
+
+  def question_params
+    params.require(:question).permit(:body)
   end
 end
