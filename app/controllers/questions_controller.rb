@@ -1,18 +1,13 @@
 class QuestionsController < ApplicationController
 
-  before_action :find_test, only: [:index, :new, :create]
-  before_action :find_question, only: [:show, :destroy]
-
-  def index
-    render json: @test.questions
-  end
-
-  def show
-    render json: @question
-  end
+  before_action :find_test, only: [:new, :create]
+  before_action :find_question, only: [:edit, :update, :destroy]
 
   def new
     @question = @test.questions.new
+  end
+
+  def edit
   end
 
   def create
@@ -22,6 +17,15 @@ class QuestionsController < ApplicationController
       render plain: 'Question created'
     else
       render :new
+    end
+  end
+
+  def update
+    if @question.update(question_params)
+      redirect_to test_path(@question.test)
+      render plain: 'Question updated'
+    else
+      render :edit
     end
   end
 
