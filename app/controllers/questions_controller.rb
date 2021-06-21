@@ -1,5 +1,4 @@
 class QuestionsController < ApplicationController
-  rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_not_found
 
   before_action :find_test, only: [:index, :new, :create]
   before_action :find_question, only: [:show, :destroy]
@@ -46,7 +45,4 @@ class QuestionsController < ApplicationController
     params.require(:question).permit(:body)
   end
 
-  def rescue_with_not_found
-    head :not_found
-  end
 end
