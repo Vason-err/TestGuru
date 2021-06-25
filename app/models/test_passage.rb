@@ -5,6 +5,8 @@ class TestPassage < ApplicationRecord
   belongs_to :test
   belongs_to :current_question, class_name: "Question", optional: true
 
+  before_validation :before_validation_set_next_question
+
   def current_question_number
     test.questions.order(:id).where('id < ?', current_question.id).count + 1
   end
@@ -26,7 +28,19 @@ class TestPassage < ApplicationRecord
     current_question.nil?
   end
 
+  def next_question
+    if test.present?
+      sorted_questions = test.questions.order(:id)
+      sorted_questions = sorted_questions.where('id > ?', current_question.id) if persisted?
+      sorted_questions.first
+    end
+  end
+
   private
+
+  def before_validation_set_next_question
+    self.current_question = next_question
+  end
 
   def correct_answer?(answer_ids)
     correct_answers.ids.sort == Array(answer_ids).map(&:to_i).sort
