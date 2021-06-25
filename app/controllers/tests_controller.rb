@@ -8,6 +8,11 @@ class TestsController < ApplicationController
   def show
   end
 
+  def start
+    @user.tests.push(@test)
+    redirect_to @user.test_passage(@test)
+  end
+
   private
 
   def find_test
