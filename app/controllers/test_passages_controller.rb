@@ -1,5 +1,5 @@
 class TestPassagesController < ApplicationController
-  before_action :set_test_passage, only: %i[ show edit update destroy ]
+  before_action :find_test_passage, only: [:show, :update, :result]
 
   def show
   end
