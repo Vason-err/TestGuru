@@ -31,8 +31,3 @@ questions[2].answers.create!(body: "Ответ №1", correct: false)
 questions[2].answers.create!(body: "Ответ №2", correct: true)
 questions[3].answers.create!(body: "Ответ №1", correct: false)
 questions[3].answers.create!(body: "Ответ №2", correct: true)
-
-users[1].results.create!([
-                           { grade: 5, test_id: tests.first },
-                           { grade: 4, test_id: tests.last }
-                         ])
