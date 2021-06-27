@@ -10,8 +10,8 @@ back, front = Category.create!([
                                  { title: "Frontend" }
                                ])
 users = User.create!([
-                       { name: "User0", email: "user0@user.com", password: "password" },
-                       { name: "User1", email: "user1@user.com", password: "drowssap"}
+                       { email: "user0@user.com", password_digest: "password" },
+                       { email: "user1@user.com", password_digest: "drowssap"}
                      ])
 tests = users[0].created_tests.create!([
                                          { title: "Ruby", level: 0, category: back },
