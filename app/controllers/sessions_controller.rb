@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:new, :create]
+
   def new; end
 
   def create
@@ -11,5 +13,10 @@ class SessionsController < ApplicationController
       flash.now[:alert] = 'Are you a Guru? Verify your Email and Password please!'
       render :new
     end
+  end
+
+  def destroy
+    session.destroy
+    redirect_to login_path, notice: 'Logout was success'
   end
 end
