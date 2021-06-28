@@ -1,5 +1,6 @@
 = form_with url: session_path, local: true do |f|
-
+  = flash_message(:alert)
+  = flash_message(:notice)
 
   p
     = f.label :email
