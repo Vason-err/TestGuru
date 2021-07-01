@@ -1,19 +1,22 @@
-class QuestionsController < ApplicationController
-
+class Admin::QuestionsController < Admin::BaseController
   before_action :find_test, only: [:new, :create]
-  before_action :find_question, only: [:edit, :update, :destroy]
+  before_action :find_question, only: [:show, :edit, :update, :destroy]
+
+  def show
+  end
 
   def new
     @question = @test.questions.new
   end
 
-  def edit; end
+  def edit
+  end
 
   def create
     @question = @test.questions.new(question_params)
+
     if @question.save
-      redirect_to question_path(@question)
-      render plain: 'Question created'
+      redirect_to admin_test_path(@test)
     else
       render :new
     end
@@ -21,8 +24,7 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update(question_params)
-      redirect_to test_path(@question.test)
-      render plain: 'Question updated'
+      redirect_to admin_test_path(@question.test)
     else
       render :edit
     end
@@ -30,8 +32,8 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question.destroy
-    redirect_to test_questions_path(@question.test)
-    render plain: 'Question deleted'
+
+    redirect_to admin_test_path(@question.test)
   end
 
   private
@@ -47,5 +49,4 @@ class QuestionsController < ApplicationController
   def question_params
     params.require(:question).permit(:body)
   end
-
 end

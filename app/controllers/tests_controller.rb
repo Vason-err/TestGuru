@@ -1,12 +1,8 @@
 class TestsController < ApplicationController
-  before_action :find_test, only: [:show, :start]
-  before_action :find_user, only: :start
+  before_action :find_test, only: :start
 
   def index
     @tests = Test.all
-  end
-
-  def show
   end
 
   def start
@@ -18,9 +14,5 @@ class TestsController < ApplicationController
 
   def find_test
     @test = Test.find(params[:id])
-  end
-
-  def find_user
-    @user = User.first
   end
 end
