@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     get :result, on: :member
   end
 
+  resources :gists, only: :create
+
   namespace :admin do
     resources :tests do
       resources :questions, except: :index, shallow: true do

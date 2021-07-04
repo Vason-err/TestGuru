@@ -1,2 +1,0 @@
-class GistController < ApplicationController
-end
