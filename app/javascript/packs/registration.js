@@ -13,10 +13,10 @@ function confirmationValidation() {
     if (inputPassword.value === '') { return }
 
     if (inputPassword.value === inputPasswordConfirmation.value) {
-        inputPasswordConfirmation.classList.remove('is-invalid');
-        inputPasswordConfirmation.classList.add('is-valid');
+        inputPasswordConfirmation.classList.remove('input--error');
+        inputPasswordConfirmation.classList.add('input--correct');
     } else {
-        inputPasswordConfirmation.classList.remove('is-valid');
-        inputPasswordConfirmation.classList.add('is-invalid');
+        inputPasswordConfirmation.classList.remove('input--correct');
+        inputPasswordConfirmation.classList.add('input--error');
     }
 }
