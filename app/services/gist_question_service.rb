@@ -16,9 +16,6 @@ class GistQuestionService
   def call
     result = Result.new
     result.url = client.create_gist(gist_options).html_url
-  rescue Octokit::ClientError
-    # some error processing - logging, etc.
-  ensure
     return result
   end
 
