@@ -3,7 +3,10 @@ h1 Tests
 - if @tests.present?
   table
     tr
-      th Title
+      th.sort-by-title.pointer
+        = Title
+        = octicon 'arrow-up', class: 'text-success hide'
+        = octicon 'arrow-down', class: 'text-success hide'
       th Category
       th Level
       th Questions count
