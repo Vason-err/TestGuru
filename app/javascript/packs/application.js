@@ -7,9 +7,19 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-import "utilities/sorting"
-import "utilities/registration"
+import "../utilities/sorting"
+import "../utilities/registration"
+import {PasswordConfirmation} from "../utilities/registration";
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+document.addEventListener('turbolinks:load',  function () {
+    if (document.getElementById('registration')) {
+        const passwordConfirmation = new PasswordConfirmation()
+        passwordConfirmation.confirmationValidation()
+    }
+    const table_id = "tests_table"
+
+})

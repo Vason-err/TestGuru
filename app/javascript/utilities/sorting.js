@@ -1,55 +1,50 @@
-document.addEventListener('turbolinks:load', function() {
-    const control = document.querySelector('.sort-by-title');
-    if (control) {
-        control.addEventListener('click', sortTableByTitle.bind(this));
-    }
-})
-
-const sortRows = (rows, direction = 'asc') => {
-    const comparator = (row1, row2) => {
-        const title1 = row1.querySelector('td').textContent;
-        const title2 = row2.querySelector('td').textContent;
-
-        const compareResult = direction == 'asc' ? 1 : -1;
-
-        if (title1 > title2) {
-            return compareResult;
-        }
-        if (title1 < title2) {
-            return -compareResult;
-        }
-        return 0;
-    };
-
-    rows.sort(comparator);
-};
-
-const sortTableByTitle = (e) => {
-    const target = e.currentTarget;
-
-    const table = document.querySelector('table');
-    const rows = document.querySelectorAll('tr');
-    const tdRows = [...rows].slice(1);
-
-    const arrowUp = target.querySelector('.octicon-arrow-up');
-    const arrowDown = target.querySelector('.octicon-arrow-down');
-
-    if (arrowUp.classList.contains('hide')) {
-        sortRows(tdRows);
-        arrowUp.classList.remove('hide');
-        arrowDown.classList.add('hide');
-    } else {
-        sortRows(tdRows, 'desc');
-        arrowDown.classList.remove('hide');
-        arrowUp.classList.add('hide');
+export class SortingTable {
+    constructor(table_id) {
+        this.table = document.getElementById(table_id)
+        this.sortedRows = [];
+        this.rows = this.table.querySelectorAll('tr');
+        this.start()
     }
 
-    const sortedTable = document.createElement('table');
-    sortedTable.classList.add('table');
+    start() {
+        const control = document.querySelector(".sort-by-title")
 
-    sortedTable.append(rows[0]);
-    tdRows.forEach(row => sortedTable.appendChild(row));
+        if (control) { control.addEventListener('click', this.sortRowsByTitle) }
+    }
 
-    table.replaceWith(sortedTable);
-};
+    sortRowsByTitle(table_id) {
+        const element = this.table.querySelector(".sort-by-title");
+        const position = element.cellIndex
+
+        for (let i = 1; i < this.rows.length; i++) {
+            this.sortedRows.push(this.rows[i])
+        }
+
+        if (element.querySelector('.octicon-arrow-up').classList.contains('hide')) {
+            this.sortedRows.sort((rowA, rowB) => rowA.cells[position].innerHTML > rowB.cells[position].innerHTML ? 1 : -1)
+            element.querySelector('.octicon-arrow-up').classList.remove('hide')
+            element.querySelector('.octicon-arrow-down').classList.add('hide')
+        } else {
+            this.sortedRows.sort((rowA, rowB) => rowA.cells[position].innerHTML > rowB.cells[position].innerHTML ? -1 : 1)
+            element.querySelector('.octicon-arrow-down').classList.remove('hide')
+            element.querySelector('.octicon-arrow-up').classList.add('hide')
+        }
+
+        this.replaceWithSortedTable()
+    }
+
+    replaceWithSortedTable() {
+        const sortedTable = document.createElement('table');
+
+        sortedTable.classList.add('table')
+        sortedTable.appendChild(this.rows[0])
+
+        for (let i = 0; i < this.sortedRows.length; i++) {
+            sortedTable.appendChild(this.sortedRows[i])
+        }
+
+        this.table.parentNode.replaceChild(sortedTable, this.table)
+    }
+}
+
 

@@ -1,22 +1,18 @@
-document.addEventListener('turbolinks:load', function () {
-    let inputPassword = document.querySelector('#user_password');
-    let inputPasswordConfirmation = document.querySelector('#user_password_confirmation');
+export class PasswordConfirmation {
+    constructor() {
+        this.password = document.querySelector('#user_password')
+        this.passwordConfirmation = document.querySelector('#user_password_confirmation')
+    }
 
-    if (inputPassword) { inputPassword.addEventListener('input', confirmationValidation) }
-    if (inputPasswordConfirmation) { inputPasswordConfirmation.addEventListener('input', confirmationValidation) }
-});
+    confirmationValidation() {
+        if (this.password.value === '') { return }
 
-function confirmationValidation() {
-    let inputPassword = document.querySelector('#user_password');
-    let inputPasswordConfirmation = document.querySelector('#user_password_confirmation');
-
-    if (inputPassword.value === '') { return }
-
-    if (inputPassword.value === inputPasswordConfirmation.value) {
-        inputPasswordConfirmation.classList.remove('input--error');
-        inputPasswordConfirmation.classList.add('input--correct');
-    } else {
-        inputPasswordConfirmation.classList.remove('input--correct');
-        inputPasswordConfirmation.classList.add('input--error');
+        if (this.password.value === this.passwordConfirmation.value) {
+            this.passwordConfirmation.classList.remove('input--error');
+            this.passwordConfirmation.classList.add('input--correct');
+        } else {
+            this.passwordConfirmation.classList.remove('input--correct');
+            this.passwordConfirmation.classList.add('input--error');
+        }
     }
 }
