@@ -1,8 +1,19 @@
+- questions_count = @test_passage.test.questions.count
+- current_question_number = @test_passage.current_question_number
+
+p
+.progress
+  = content_tag :div,
+          id: 'test_progress_bar',
+          class: 'progress-bar',
+          data: { progress: @test_passage.result } do
+    = @test_passage.result
+    | %
 h1 Passing the #{@test_passage.test.title} Test
 
-b = pluralize(@test_passage.test.questions.count, 'question')
+b = pluralize(questions_count, 'question')
 br
-b Question №#{@test_passage.current_question_number}
+b Question №#{current_question_number}
 br
 b = @test_passage.current_question.body
 

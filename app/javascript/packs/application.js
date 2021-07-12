@@ -11,6 +11,7 @@ import "../utilities/sorting"
 import {SortingTable} from "../utilities/sorting";
 import {PasswordConfirmation} from "../utilities/registration";
 import {FormInline} from "../utilities/form_inline";
+import {ProgressBar} from "../utilities/progress_bar";
 
 Rails.start()
 Turbolinks.start()
@@ -25,4 +26,8 @@ document.addEventListener('turbolinks:load',  function () {
   SelectedTests.forEach(function (test) {
     new FormInline(test)
   })
+
+  const progressBar = new ProgressBar("test_progress_bar")
+
+  progressBar.updateProgress()
 })
