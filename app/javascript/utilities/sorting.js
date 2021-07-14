@@ -1,5 +1,7 @@
 class SortingTable {
-  constructor(tableID) { this.table = document.getElementById(tableID) }
+  constructor(tableID) {
+    this.table = document.getElementById(tableID)
+  }
 
   sortRowsByTitle() {
     const rows = this.table.querySelectorAll('tr')
@@ -37,7 +39,7 @@ class SortingTable {
   }
 
   compareRowsAsc(row1, row2) {
-    const columnIndex = document.querySelector('.sort-by').cellIndex
+    const columnIndex = document.querySelector('.sort-by-title').cellIndex
     const testTitle1 = row1.getElementsByTagName("td")[columnIndex].textContent
     const testTitle2 = row2.getElementsByTagName("td")[columnIndex].textContent
 
@@ -47,7 +49,7 @@ class SortingTable {
   }
 
   compareRowsDesc(row1, row2) {
-    const columnIndex = document.querySelector('.sort-by').cellIndex
+    const columnIndex = document.querySelector('.sort-by-title').cellIndex
     const testTitle1 = row1.getElementsByTagName("td")[columnIndex].textContent
     const testTitle2 = row2.getElementsByTagName("td")[columnIndex].textContent
 

@@ -16,13 +16,22 @@ import SortingTable from "../utilities/sorting";
 document.addEventListener('turbolinks:load',  function () {
   FormInline.setEventListeners()
 
-  const sortByTitle = document.querySelector('.sort-by-title')
+  const control = document.querySelector('.sort-by-title')
+  if (control) { control.addEventListener('click', sort) }
 
-  if (sortByTitle) { sortByTitle.addEventListener('click', sort) }
-
-  let sort = () => {
+  function sort() {
     new SortingTable("table_tests").sortRowsByTitle()
   }
+
+  const password = document.getElementById("password_field")
+  const passwordConfirmation = document.getElementById("pass_conf_field")
+  if (passwordConfirmation) { passwordConfirmation.addEventListener('input', passwordCheck) }
+  function passwordCheck() {
+    if (password && passwordConfirmation)
+    { new PasswordConfirmation("password_field", "pass_conf_field").confirmationValidation() }
+  }
+
+
 
   new PasswordConfirmation("password_field", "pass_conf_field")
 

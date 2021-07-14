@@ -5,12 +5,12 @@ p = link_to 'New Test', new_admin_test_path
 =render 'shared/errors', resource: @test
 
 - if @tests.present?
-  table#table_tests
+  table#table_tests.table
     tr
       th.sort-by-title.pointer
         | Title
-        = octicon 'arrow-up', class: 'text-success hide'
-        = octicon 'arrow-down', class: 'text-success hide'
+        = octicon 'arrow-up', class: 'passed hide'
+        = octicon 'arrow-down', class: 'passed hide'
       th Category
       th Level
       th Questions count
