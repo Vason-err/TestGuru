@@ -5,7 +5,7 @@ p = link_to 'New Test', new_admin_test_path
 =render 'shared/errors', resource: @test
 
 - if @tests.present?
-  table id="admin_tests"
+  table#table_tests
     tr
       th.sort-by-title.pointer
         | Title

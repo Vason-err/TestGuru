@@ -1,39 +1,41 @@
 export class FormInline {
-    constructor(Test) {
-        this.test = Test
-        this.control = this.test.addEventListener('click', this.formInlineLinkHandler)
+  static setEventListeners() {
+    const links = document.querySelectorAll('.form-inline-link')
+
+    if (links.length) {
+      for (let i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', FormInline.formInLineHandler)
+      }
+
+      const errors = document.querySelector('.resource-errors')
+
+      if (errors) {
+        const resourceId = errors.dataset.resourceId
+        FormInline.handler(resourceId)
+      }
     }
+  }
 
-    errorHandler() {
-        const errors = document.querySelector('.resource-errors')
+  static formInLineHandler(event) {
+    event.preventDefault()
 
-        if (errors) {
-            const resourceId = errors.dataset.resourceId
-            this.formInlineHandler(resourceId)
-        }
+    const testId = this.dataset.testId
+    FormInline.handler(testId)
+  }
+
+  static handler(testId) {
+    const link = document.querySelector('.form-inline-link[data-test-id="' + testId + '"]')
+    const testTitle = document.querySelector('.test-title[data-test-id="' + testId + '"]')
+    const formInline = document.querySelector('.form-inline[data-test-id="' + testId + '"]')
+
+    if (formInline.classList.contains('hide')) {
+      testTitle.classList.add('hide')
+      formInline.classList.remove('hide')
+      link.textContent = 'Cancel'
+    } else {
+      testTitle.classList.remove('hide')
+      formInline.classList.add('hide')
+      link.textContent = 'Edit'
     }
-
-    formInlineLinkHandler(event) {
-        event.preventDefault()
-
-        const testId = this.dataset.testId
-        this.formInlineHandler(testId)
-    }
-
-    formInlineHandler(testId) {
-        const link = document.querySelector('.form-inline-link[data-test-id="' + testId + '"]')
-        const testTitle = document.querySelector('.test-title[data-test-id="' + testId + '"]')
-        const formInline = document.querySelector('.form-inline[data-test-id="' + testId + '"]')
-
-        if (formInline.classList.contains('hide')) {
-            testTitle.classList.add('hide')
-            formInline.classList.remove('hide')
-            link.textContent = 'Cancel'
-        } else {
-            testTitle.classList.remove('hide')
-            formInline.classList.add('hide')
-            link.textContent = 'Edit'
-        }
-    }
-
+  }
 }

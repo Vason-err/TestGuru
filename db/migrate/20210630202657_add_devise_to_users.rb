@@ -14,13 +14,13 @@ class AddDeviseToUsers < ActiveRecord::Migration[6.1]
       t.datetime :remember_created_at
 
       ## Trackable
-      # t.integer  :sign_in_count, default: 0, null: false
-      # t.datetime :current_sign_in_at
-      # t.datetime :last_sign_in_at
-      # t.string   :current_sign_in_ip
-      # t.string   :last_sign_in_ip
+      t.integer  :sign_in_count, default: 0, null: false
+      t.datetime :current_sign_in_at
+      t.datetime :last_sign_in_at
+      t.inet     :current_sign_in_ip
+      t.inet     :last_sign_in_ip
 
-      ## Confirmable
+      # Confirmable
       t.string   :confirmation_token
       t.datetime :confirmed_at
       t.datetime :confirmation_sent_at
@@ -39,14 +39,13 @@ class AddDeviseToUsers < ActiveRecord::Migration[6.1]
     remove_column :users, :password_digest
     change_column_default :users, :email, ""
 
+    add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
     add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true
   end
 
   def self.down
-    # By default, we don't want to make any assumption about how to roll back a migration when your
-    # model already existed. Please edit below which fields you would like to remove in this migration.
     remove_columns :users, :encrypted_password,
                    :reset_password_token,
                    :reset_password_sent_at,

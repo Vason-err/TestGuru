@@ -7,27 +7,30 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-import "../utilities/sorting"
-import {SortingTable} from "../utilities/sorting";
 import {PasswordConfirmation} from "../utilities/registration";
 import {FormInline} from "../utilities/form_inline";
 import {ProgressBar} from "../utilities/progress_bar";
+import SortingTable from "../utilities/sorting";
 
-Rails.start()
-Turbolinks.start()
-ActiveStorage.start()
 
 document.addEventListener('turbolinks:load',  function () {
-  new SortingTable("admin_tests")
-  new SortingTable("user_tests")
-  new PasswordConfirmation("password_field", "pass_conf_field")
-  const SelectedTests = document.querySelectorAll('.form-inline-link')
+  FormInline.setEventListeners()
 
-  SelectedTests.forEach(function (test) {
-    new FormInline(test)
-  })
+  const sortByTitle = document.querySelector('.sort-by-title')
+
+  if (sortByTitle) { sortByTitle.addEventListener('click', sort) }
+
+  let sort = () => {
+    new SortingTable("table_tests").sortRowsByTitle()
+  }
+
+  new PasswordConfirmation("password_field", "pass_conf_field")
 
   const progressBar = new ProgressBar("test_progress_bar")
 
   progressBar.updateProgress()
 })
+
+Rails.start()
+Turbolinks.start()
+ActiveStorage.start()
