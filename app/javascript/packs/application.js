@@ -11,6 +11,8 @@ import {PasswordConfirmation} from "../utilities/registration";
 import {FormInline} from "../utilities/form_inline";
 import {ProgressBar} from "../utilities/progress_bar";
 import SortingTable from "../utilities/sorting";
+import "../utilities/timer"
+import Timer from "../utilities/timer";
 
 
 document.addEventListener('turbolinks:load',  function () {
@@ -38,6 +40,8 @@ document.addEventListener('turbolinks:load',  function () {
   const progressBar = new ProgressBar("test_progress_bar")
 
   progressBar.updateProgress()
+
+  new Timer()
 })
 
 Rails.start()
