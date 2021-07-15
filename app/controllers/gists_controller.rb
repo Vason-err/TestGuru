@@ -10,7 +10,7 @@ class GistsController < ApplicationController
     end
 
     if gist && gist.save
-      flash[:notice] = t('.success', link: helpers.link_to(gist.text_id, gist.url, target: :blank))
+      flash[:notice] = t('.success', link: view_context.link_to(gist.text_id, gist.url, target: :_blank).html_safe)
     else
       flash[:alert] = t('.failure')
     end

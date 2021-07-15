@@ -36,6 +36,7 @@ questions = []
 tests.each do |test|
     questions << test.questions.create!(body: "Вопроса №1 теста #{test.title}")
 end
+questions << tests[0].questions.create!(body: "Вопроса №2 теста #{tests[0].title}")
 questions[0].answers.create!(body: "Ответ №1", correct: false)
 questions[0].answers.create!(body: "Ответ №2", correct: true)
 questions[1].answers.create!(body: "Ответ №1", correct: true)
@@ -44,3 +45,5 @@ questions[2].answers.create!(body: "Ответ №1", correct: false)
 questions[2].answers.create!(body: "Ответ №2", correct: true)
 questions[3].answers.create!(body: "Ответ №1", correct: false)
 questions[3].answers.create!(body: "Ответ №2", correct: true)
+questions[4].answers.create!(body: "Ответ №1", correct: false)
+questions[4].answers.create!(body: "Ответ №2", correct: true)
