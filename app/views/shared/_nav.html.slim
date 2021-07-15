@@ -3,6 +3,11 @@ p.nav
     | Welcome,
     b<> = current_user.email
     | Guru
+    - if current_user.admin?
+      => link_to 'Tests', admin_tests_path
+      '|
+      => link_to 'Gists', admin_gists_path
+      '|
     =< link_to 'Logout', destroy_user_session_path, method: :delete
   - else
     =< link_to 'TestGuru', root_path

@@ -9,11 +9,24 @@ back, front = Category.create!([
                                  { title: "Backend" },
                                  { title: "Frontend" }
                                ])
-users = User.create!([
-                       { email: "user0@user.com", password_digest: "password" },
-                       { email: "user1@user.com", password_digest: "drowssap"}
-                     ])
-tests = users[0].created_tests.create!([
+admin = Admin.new(
+  email: 'admin@mail.com',
+  password: 'vas0707+',
+  first_name: 'Vason',
+  last_name: 'Daterr'
+)
+admin.skip_confirmation!
+admin.save!
+user = User.new(
+  email: 'user@mail.com',
+  password: 'password',
+  first_name: 'San',
+  last_name: 'Holef'
+)
+user.skip_confirmation!
+user.save!
+
+tests = admin.created_tests.create!([
                                          { title: "Ruby", level: 0, category: back },
                                          { title: "CSS", level: 3, category: front },
                                          { title: "HTML", level: 2, category: front },
@@ -23,6 +36,7 @@ questions = []
 tests.each do |test|
     questions << test.questions.create!(body: "Вопроса №1 теста #{test.title}")
 end
+questions << tests[0].questions.create!(body: "Вопроса №2 теста #{tests[0].title}")
 questions[0].answers.create!(body: "Ответ №1", correct: false)
 questions[0].answers.create!(body: "Ответ №2", correct: true)
 questions[1].answers.create!(body: "Ответ №1", correct: true)
@@ -31,3 +45,5 @@ questions[2].answers.create!(body: "Ответ №1", correct: false)
 questions[2].answers.create!(body: "Ответ №2", correct: true)
 questions[3].answers.create!(body: "Ответ №1", correct: false)
 questions[3].answers.create!(body: "Ответ №2", correct: true)
+questions[4].answers.create!(body: "Ответ №1", correct: false)
+questions[4].answers.create!(body: "Ответ №2", correct: true)

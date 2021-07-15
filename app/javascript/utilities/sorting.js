@@ -1,50 +1,61 @@
-export class SortingTable {
-  constructor(table_id) {
-    this.table = document.getElementById(table_id)
-    this.sortedRows = [];
-    this.rows = this.table.querySelectorAll('tr');
-    this.start()
-  }
-
-  start() {
-    const control = document.querySelector(".sort-by-title")
-
-    if (control) { control.addEventListener('click', this.sortRowsByTitle) }
+class SortingTable {
+  constructor(tableID) {
+    this.table = document.getElementById(tableID)
   }
 
   sortRowsByTitle() {
-    const element = this.table.querySelector(".sort-by-title");
-    const position = element.cellIndex
+    const rows = this.table.querySelectorAll('tr')
+    const sortedRows = []
 
-    for (let i = 1; i < this.rows.length; i++) {
-      this.sortedRows.push(this.rows[i])
+    for(let i = 1; i < rows.length; i++) {
+      sortedRows.push(rows[i])
     }
 
-    if (element.querySelector('.octicon-arrow-up').classList.contains('hide')) {
-      this.sortedRows.sort((rowA, rowB) => rowA.cells[position].innerHTML > rowB.cells[position].innerHTML ? 1 : -1)
-      element.querySelector('.octicon-arrow-up').classList.remove('hide')
-      element.querySelector('.octicon-arrow-down').classList.add('hide')
-    } else {
-      this.sortedRows.sort((rowA, rowB) => rowA.cells[position].innerHTML > rowB.cells[position].innerHTML ? -1 : 1)
-      element.querySelector('.octicon-arrow-down').classList.remove('hide')
-      element.querySelector('.octicon-arrow-up').classList.add('hide')
+    const arrowUpClassList = this.table.querySelector('.octicon-arrow-up').classList;
+    const arrowDownClassList = this.table.querySelector('.octicon-arrow-down').classList;
+
+    if (arrowUpClassList.contains('hide')) {
+      sortedRows.sort(this.compareRowsAsc)
+      arrowUpClassList.remove('hide')
+      arrowDownClassList.add('hide')
+    }
+    else {
+      sortedRows.sort(this.compareRowsDesc)
+      arrowDownClassList.remove('hide')
+      arrowUpClassList.add('hide')
     }
 
-    this.replaceWithSortedTable()
-  }
-
-  replaceWithSortedTable() {
-    const sortedTable = document.createElement('table');
-
+    const sortedTable = document.createElement('table')
     sortedTable.classList.add('table')
-    sortedTable.appendChild(this.rows[0])
+    sortedTable.setAttribute("id", this.table.id);
 
-    this.sortedRows.forEach(function (row) {
-      sortedTable.appendChild(this.row)
-    })
+    sortedTable.appendChild(rows[0])
+
+    for (let row of sortedRows) {
+      sortedTable.appendChild(row)
+    }
 
     this.table.parentNode.replaceChild(sortedTable, this.table)
- }
+  }
+
+  compareRowsAsc(row1, row2) {
+    const columnIndex = document.querySelector('.sort-by-title').cellIndex
+    const testTitle1 = row1.getElementsByTagName("td")[columnIndex].textContent
+    const testTitle2 = row2.getElementsByTagName("td")[columnIndex].textContent
+
+    if (testTitle1 < testTitle2) {return -1}
+    if (testTitle1 > testTitle2) {return 1}
+    return 0
+  }
+
+  compareRowsDesc(row1, row2) {
+    const columnIndex = document.querySelector('.sort-by-title').cellIndex
+    const testTitle1 = row1.getElementsByTagName("td")[columnIndex].textContent
+    const testTitle2 = row2.getElementsByTagName("td")[columnIndex].textContent
+
+    if (testTitle1 > testTitle2) {return -1}
+    if (testTitle1 < testTitle2) {return 1}
+    return 0
+  }
 }
-
-
+export default SortingTable

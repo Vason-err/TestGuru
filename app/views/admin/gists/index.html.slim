@@ -4,9 +4,9 @@ h1.mt-3.mb-3 = t('.header')
   table.table.table-striped
     thead
       tr
-        th = User.model_name.human
-        th = Question.model_name.human
-        th = Gist.human_attribute_name(:url)
+        th User
+        th Question
+        th Gist URL
 
     tbody
       = render @gists

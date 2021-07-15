@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root 'tests#index'
+
   devise_for :users,
              controllers: { sessions: 'users/sessions' },
              path_names: { sign_in: :login, sign_out: :logout, sign_up: :signup }
@@ -17,6 +19,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :tests do
+      patch :update_inline, on: :member
       resources :questions, except: :index, shallow: true do
         resources :answers, except: :index, shallow: true
       end

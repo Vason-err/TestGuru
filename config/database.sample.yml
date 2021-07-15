@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username:
+  password:
+  host: localhost
+
+development:
+  <<: *default
+  database: TestGuru_development
+
+test:
+  <<: *default
+  database: TestGuru_test
+
+production:
+  <<: *default
+  database: TestGuru_production

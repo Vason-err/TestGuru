@@ -34,7 +34,7 @@ en:
 
   gists:
     create:
-      success: "Gist {link} created successfully"
+      success: "Gist %{link} created successfully"
       failure: "An error occurred while creating the gist"
 
   admin:

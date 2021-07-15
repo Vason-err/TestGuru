@@ -7,16 +7,39 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-import "../utilities/sorting"
-import {SortingTable} from "../utilities/sorting";
 import {PasswordConfirmation} from "../utilities/registration";
+import {FormInline} from "../utilities/form_inline";
+import {ProgressBar} from "../utilities/progress_bar";
+import SortingTable from "../utilities/sorting";
+
+
+document.addEventListener('turbolinks:load',  function () {
+  FormInline.setEventListeners()
+
+  const control = document.querySelector('.sort-by-title')
+  if (control) { control.addEventListener('click', sort) }
+
+  function sort() {
+    new SortingTable("table_tests").sortRowsByTitle()
+  }
+
+  const password = document.getElementById("password_field")
+  const passwordConfirmation = document.getElementById("pass_conf_field")
+  if (passwordConfirmation) { passwordConfirmation.addEventListener('input', passwordCheck) }
+  function passwordCheck() {
+    if (password && passwordConfirmation)
+    { new PasswordConfirmation("password_field", "pass_conf_field").confirmationValidation() }
+  }
+
+
+
+  new PasswordConfirmation("password_field", "pass_conf_field")
+
+  const progressBar = new ProgressBar("test_progress_bar")
+
+  progressBar.updateProgress()
+})
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
-
-document.addEventListener('turbolinks:load',  function () {
-  new SortingTable("admin_tests")
-  new SortingTable("user_tests")
-  new PasswordConfirmation("password_field", "pass_conf_field")
-})
