@@ -32,6 +32,10 @@
 en:
   hello: "Hello world"
 
+  test_passages:
+    show:
+      timer: "Time to end"
+
   gists:
     create:
       success: "Gist %{link} created successfully"

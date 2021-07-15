@@ -36,6 +36,15 @@ class TestPassage < ApplicationRecord
     end
   end
 
+  def timer_valid?
+    time_left.positive?
+  end
+
+  def time_left
+    timer = test.timer
+    timer ? (self.created_at + timer.minutes - Time.current).ceil : Float::INFINITY
+  end
+
   private
 
   def before_validation_set_next_question
