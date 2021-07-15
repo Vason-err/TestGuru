@@ -11,7 +11,6 @@ import {PasswordConfirmation} from "../utilities/registration";
 import {FormInline} from "../utilities/form_inline";
 import {ProgressBar} from "../utilities/progress_bar";
 import SortingTable from "../utilities/sorting";
-import "../utilities/timer"
 import Timer from "../utilities/timer";
 
 
@@ -33,9 +32,6 @@ document.addEventListener('turbolinks:load',  function () {
     { new PasswordConfirmation("password_field", "pass_conf_field").confirmationValidation() }
   }
 
-
-
-  new PasswordConfirmation("password_field", "pass_conf_field")
 
   const progressBar = new ProgressBar("test_progress_bar")
 
