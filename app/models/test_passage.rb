@@ -5,14 +5,19 @@ class TestPassage < ApplicationRecord
   belongs_to :test
   belongs_to :current_question, class_name: "Question", optional: true
 
-  before_validation :before_validation_set_next_question
+  before_validation :before_validation_set_next_question, on: :create
 
   def current_question_number
     test.questions.order(:id).where('id < ?', current_question.id).count + 1
   end
 
   def accept!(answer_ids)
-    self.correct_questions += 1 if correct_answer?(answer_ids)
+    if time_left?
+      self.correct_questions += 1 if correct_answer?(answer_ids)
+    else
+      self.current_question = nil
+    end
+
     save!
   end
 
@@ -36,7 +41,7 @@ class TestPassage < ApplicationRecord
     end
   end
 
-  def timer_valid?
+  def time_left?
     time_left.positive?
   end
 
@@ -48,7 +53,7 @@ class TestPassage < ApplicationRecord
   private
 
   def before_validation_set_next_question
-    self.current_question = next_question
+    self.current_question = test.questions.first if test.present?
   end
 
   def correct_answer?(answer_ids)

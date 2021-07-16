@@ -14,6 +14,8 @@ import SortingTable from "../utilities/sorting";
 import Timer from "../utilities/timer";
 
 
+
+
 document.addEventListener('turbolinks:load',  function () {
   FormInline.setEventListeners()
 
@@ -37,7 +39,8 @@ document.addEventListener('turbolinks:load',  function () {
 
   progressBar.updateProgress()
 
-  new Timer()
+  const timer = document.querySelector(".timer")
+  if (timer) { new Timer(timer) }
 })
 
 Rails.start()

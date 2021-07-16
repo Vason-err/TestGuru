@@ -1,19 +1,15 @@
-class Timer {
-  constructor() {
-    this.timer = document.querySelector(".timer")
+export default class Timer {
+  constructor(timer) {
+    this.timer = timer
     this.timerCheck(this.timer)
-}
+  }
 
-  timerCheck = timer => {
+  timerCheck = (timer) => {
     if (timer) {
       let timerSeconds = parseInt(timer.dataset.seconds);
-      function submitAnswerForm() {
-        let form = document.querySelector('#answer-form')
-        form.submit()
-      }
       setInterval(function() {
 
-        if (timerSeconds == 0) { submitAnswerForm() }
+        if (timerSeconds == 0) { Timer.submitAnswerForm() }
 
         let seconds = timerSeconds % 60;
         let minutes = (timerSeconds - seconds) / 60;
@@ -21,8 +17,12 @@ class Timer {
         timer.textContent = minutes + ':' + (seconds < 10 ? '0' + seconds : seconds);
 
         timerSeconds--;
-        }, 1000);
+      }, 1000);
     }
   }
+
+  static submitAnswerForm() {
+    let form = document.querySelector('#answer-form')
+    form.submit()
+  }
 }
-export default Timer

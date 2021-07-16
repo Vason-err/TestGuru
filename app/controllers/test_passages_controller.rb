@@ -1,6 +1,5 @@
 class TestPassagesController < ApplicationController
   before_action :find_test_passage, only: [:show, :update, :result]
-  before_action :check_timer, only: [:show]
 
   def show
   end
@@ -25,6 +24,6 @@ class TestPassagesController < ApplicationController
     end
 
     def check_timer
-      redirect_to result_test_passage_path(@test_passage) unless @test_passage.timer_valid?
+      redirect_to result_test_passage_path(@test_passage) unless @test_passage.time_left?
     end
 end
