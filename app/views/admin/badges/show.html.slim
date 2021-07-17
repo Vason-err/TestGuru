@@ -1,0 +1,7 @@
+h1 #{@badge.title} badge
+
+img src=@badge.image_url width="100" height="100"  alt=@badge.title
+
+= link_to t('.edit'), edit_admin_badge_path(@badge)
+br
+= link_to t('.back'), admin_badges_path
