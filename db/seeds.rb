@@ -53,6 +53,6 @@ Badge.create!([
                   description: "Successful passing of all tests of backend category" },
                 { title: 'Swot)', image_url: '/images/star.svg', rule: 1, rule_value: 1,
                   description: 'Successful passing of all tests of 1 level' },
-                { title: 'LuckyOne', image_url: '/images/diamond.svg', rule: 2, rule_value: '2',
-                  description: 'Successful passing the test with a certain attempt' }
+                { title: 'LuckyOne', image_url: '/images/diamond.svg', rule: 2, rule_value: 1,
+                  description: 'Successful passing the test with a first attempt' }
               ])
