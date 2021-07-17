@@ -23,11 +23,19 @@ class User < ApplicationRecord
     tests.where(level: level)
   end
 
+  def successful_tests
+    tests.merge(TestPassage.successful)
+  end
+
   def test_passage(test)
     test_passages.order(id: :desc).find_by(test: test)
   end
 
   def admin?
     is_a?(Admin)
+  end
+
+  def test_attempts_count(test)
+    test_passages.where(test: test).count
   end
 end

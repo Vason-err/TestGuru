@@ -7,7 +7,8 @@ class TestPassage < ApplicationRecord
 
   scope :successful, -> { where(percent: SUCCESS_PERCENT..100) }
 
-  before_validation :before_validation_set_next_question, on: :create
+  before_validation :before_validation_set_first_question, on: :create
+  before_validation :before_validation_set_next_question
 
   validates :percent, inclusion: 0..100, allow_nil: true
 
@@ -35,7 +36,7 @@ class TestPassage < ApplicationRecord
   end
 
   def completed?
-    current_question.nil?
+    current_question.nil? && percent
   end
 
   def next_question
@@ -57,8 +58,12 @@ class TestPassage < ApplicationRecord
 
   private
 
-  def before_validation_set_next_question
+  def before_validation_set_first_question
     self.current_question = test.questions.first if test.present?
+  end
+
+  def before_validation_set_next_question
+    self.current_question = next_question unless completed?
   end
 
   def correct_answer?(answer_ids)

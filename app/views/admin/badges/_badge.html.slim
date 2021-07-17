@@ -2,8 +2,9 @@ tr
   td= badge.title
   td
     = image_tag(badge.image_url, width: 100 , height: 100)
-  td = badge.rule_name
+  td = badge.rule
   td = badge.rule_value
+  td = badge.description
   td = link_to 'Show', admin_badge_path(badge)
   td = link_to 'Edit', edit_admin_badge_path(badge)
   td = link_to 'Delete', admin_badge_path(badge), method: :delete, data: { confirm: 'Are you sure?' }

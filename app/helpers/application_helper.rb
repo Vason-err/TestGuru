@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def active_link_to(text, path)
-    classes += 'active' if current_page?(path)
+    classes = 'active' if current_page?(path)
     link_to text, path, class: classes
   end
 end

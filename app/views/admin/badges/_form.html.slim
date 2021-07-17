@@ -2,9 +2,9 @@
   = render 'shared/errors', resource: @badge
 
   p
-    = f.label :name
+    = f.label :title
     br
-    = f.text_field :name
+    = f.text_field :title
 
   p
     = f.label :image_url
@@ -12,14 +12,19 @@
     = f.select(:image_url, badge_image_url_options, prompt: true)
 
   p
-    = f.label :rule_name
+    = f.label :rule
     br
-    = f.select(:rule_name, badge_rule_name_options, prompt: true)
+    = f.select(:rule, badge_rule_name_options, prompt: true)
 
   p
     = f.label :rule_value
     br
     = f.text_field :rule_value
+
+  p
+    = f.label :description
+    br
+    = f.text_field :description
 
   p
     = f.submit

@@ -19,7 +19,7 @@ class Admin::BadgesController < Admin::BaseController
     @badge = Badge.new(badge_params)
 
     if @badge.save
-      redirect_to admin_badge_path(@badge), notice: t('.created')
+      redirect_to admin_badge_path(@badge), notice: 'Badge created'
     else
       render :new
     end
@@ -27,7 +27,7 @@ class Admin::BadgesController < Admin::BaseController
 
   def update
     if @badge.update(badge_params)
-      redirect_to admin_badge_path(@badge), notice: t('.updated')
+      redirect_to admin_badge_path(@badge), notice: 'Badge updated'
     else
       render :edit
     end
@@ -41,7 +41,7 @@ class Admin::BadgesController < Admin::BaseController
   private
 
   def badge_params
-    params.require(:badge).permit(:name, :image_url, :rule_name, :rule_value)
+    params.require(:badge).permit(:title, :image_url, :rule)
   end
 
   def find_badge

@@ -47,3 +47,12 @@ questions[3].answers.create!(body: "Ответ №1", correct: false)
 questions[3].answers.create!(body: "Ответ №2", correct: true)
 questions[4].answers.create!(body: "Ответ №1", correct: false)
 questions[4].answers.create!(body: "Ответ №2", correct: true)
+
+Badge.create!([
+                { title: 'Newbie', image_url: '/images/thumb.svg', rule: 0, rule_value: 'Backend',
+                  description: "Successful passing of all tests of backend category" },
+                { title: 'Swot)', image_url: '/images/star.svg', rule: 1, rule_value: 1,
+                  description: 'Successful passing of all tests of 1 level' },
+                { title: 'LuckyOne', image_url: '/images/diamond.svg', rule: 2, rule_value: '2',
+                  description: 'Successful passing the test with a certain attempt' }
+              ])
