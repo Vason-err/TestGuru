@@ -22,4 +22,8 @@ class TestPassagesController < ApplicationController
     def find_test_passage
       @test_passage = TestPassage.find(params[:id])
     end
+
+    def check_timer
+      redirect_to result_test_passage_path(@test_passage) unless @test_passage.time_left?
+    end
 end

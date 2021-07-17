@@ -11,6 +11,9 @@ import {PasswordConfirmation} from "../utilities/registration";
 import {FormInline} from "../utilities/form_inline";
 import {ProgressBar} from "../utilities/progress_bar";
 import SortingTable from "../utilities/sorting";
+import Timer from "../utilities/timer";
+
+
 
 
 document.addEventListener('turbolinks:load',  function () {
@@ -32,12 +35,12 @@ document.addEventListener('turbolinks:load',  function () {
   }
 
 
-
-  new PasswordConfirmation("password_field", "pass_conf_field")
-
   const progressBar = new ProgressBar("test_progress_bar")
 
   progressBar.updateProgress()
+
+  const timer = document.querySelector(".timer")
+  if (timer) { new Timer(timer) }
 })
 
 Rails.start()

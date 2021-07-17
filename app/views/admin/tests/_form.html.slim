@@ -15,4 +15,9 @@
     = f.collection_select(:category_id, Category.all, :id, :title)
 
   p
+    = f.label :timer
+    br
+    = f.number_field :timer
+
+  p
     = f.submit 'Save'

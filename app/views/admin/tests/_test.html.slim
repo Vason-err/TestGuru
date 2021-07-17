@@ -5,6 +5,7 @@ tr
   td = test.category.title
   td = test.level
   td = test.questions.count
+  td = test.timer
   td = link_to 'Show', admin_test_path(test)
   td = link_to 'Edit', edit_admin_test_path(test), data: { test_id: test.id }, class: 'form-inline-link'
   td = link_to 'Delete', admin_test_path(test), method: :delete, data: { confirm: 'Are you sure?' }
