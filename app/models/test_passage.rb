@@ -5,7 +5,11 @@ class TestPassage < ApplicationRecord
   belongs_to :test
   belongs_to :current_question, class_name: "Question", optional: true
 
+  scope :successful, -> { where(percent: SUCCESS_PERCENT..100) }
+
   before_validation :before_validation_set_next_question, on: :create
+
+  validates :percent, inclusion: 0..100, allow_nil: true
 
   def current_question_number
     test.questions.order(:id).where('id < ?', current_question.id).count + 1
@@ -18,6 +22,7 @@ class TestPassage < ApplicationRecord
       self.current_question = nil
     end
 
+    self.percent = result
     save!
   end
 
@@ -26,7 +31,7 @@ class TestPassage < ApplicationRecord
   end
 
   def success_result?
-    result >= SUCCESS_PERCENT
+    percent && percent >= SUCCESS_PERCENT
   end
 
   def completed?
