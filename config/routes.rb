@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   resources :gists, only: :create
 
+  get '/badges/(:filter)' => 'badges#index', as: :badges
+
   namespace :admin do
     resources :tests do
       patch :update_inline, on: :member
@@ -26,5 +28,7 @@ Rails.application.routes.draw do
     end
 
     resources :gists, only: :index
+
+    resources :badges
   end
 end

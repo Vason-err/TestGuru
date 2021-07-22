@@ -6,7 +6,14 @@ p.nav
     - if current_user.admin?
       => link_to 'Tests', admin_tests_path
       '|
+      => link_to 'Badges', admin_badges_path
+      '|
       => link_to 'Gists', admin_gists_path
+      '|
+    - else
+      => link_to 'Tests', tests_path
+      '|
+      => link_to 'Badges', badges_path
       '|
     =< link_to 'Logout', destroy_user_session_path, method: :delete
   - else

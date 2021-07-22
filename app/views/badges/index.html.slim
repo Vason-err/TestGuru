@@ -1,0 +1,10 @@
+h1 Badges
+
+p
+  = active_link_to('Mine badges', badges_path)
+  = active_link_to('All badges', badges_path(filter: :all))
+
+- if @badges.present?
+  = render @badges
+- else
+  p There is no badges

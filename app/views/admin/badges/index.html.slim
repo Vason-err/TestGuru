@@ -1,0 +1,19 @@
+h1 Badges
+
+p = link_to 'New Badge', new_admin_badge_path
+
+=render 'shared/errors', resource: @test
+
+- if @badges.present?
+  table
+    tr
+      th Title
+      th Image_url
+      th Rule
+      th Rule value
+      th Description
+      th colspan='3' Actions
+
+    = render @badges
+- else
+  p There is no badges
