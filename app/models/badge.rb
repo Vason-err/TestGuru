@@ -15,7 +15,7 @@ class Badge < ApplicationRecord
   def self.assignable(test_passage)
     return [] unless test_passage.success_result?
 
-    all.select { |badge| badge.assign?(test_passage) }
+    all.find_each { |badge| badge.assign?(test_passage) }
   end
 
   def assign?(test_passage)

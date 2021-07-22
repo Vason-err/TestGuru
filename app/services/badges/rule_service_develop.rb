@@ -1,4 +1,3 @@
-
 module Badges
   module RuleServiceDevelop
     class << self
